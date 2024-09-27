@@ -1,0 +1,52 @@
+#currentsMuics {
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+  bottom: 0.5em;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  background-color: hsla(0, 0%, 0%, 0.4);
+  border-radius: 1em;
+  overflow-x: hidden;
+  overflow-y: auto;
+  opacity: 1;
+  transform: translateX(0%);
+  max-width: max(8em, 100%);
+}
+
+#currentsMuics[data-hidden=""] {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+#currentsMuics[data-animating=""] {
+  transition: 0.5s ease-out;
+}
+
+.currentsMuics__card {
+  display: flex;
+  gap: 0.5em;
+  padding: 0.25em;
+  border: solid 0.1em hsl(0, 0%, 100%, 0.02);
+}
+
+.currentsMuics__card:has([disabled]) {
+  opacity: 0.5;
+}
+
+.currentsMuics__card:hover,
+.currentsMuics__card:has(input:focus-visible) {
+  background-color: hsl(0, 0%, 100%, 0.05);
+  border-color: hsl(0, 0%, 100%, 0.08);
+}
+
+.currentsMuics__card label {
+  flex: 1 1 100%;
+}
+
+.currentsMuics__card:has(input:checked) {
+  background-color: hsl(0, 0%, 100%, 0.1);
+  border-color: hsl(0, 0%, 100%, 0.2);
+}

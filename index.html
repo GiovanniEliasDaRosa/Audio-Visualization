@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio Visualization</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/icons.css" />
+    <link rel="stylesheet" href="css/buttons.css" />
+    <link rel="stylesheet" href="css/listmusics.css" />
+    <link rel="stylesheet" href="css/uploadMusic.css" />
+    <link rel="stylesheet" href="css/musicmanager.css" />
+
+    <script src="js/functions.js"></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/list.js" defer></script>
+    <script src="js/musicmanager.js" defer></script>
+  </head>
+  <body data-waitclick>
+    <div id="tiles"></div>
+    <div id="hud">
+      <button class="buttons" type="button" id="play__button" title="Play">Play</button>
+    </div>
+
+    <div id="currentsMuics">
+      <div id="uploadMusic">
+        <input
+          type="file"
+          name="uploadedMusic__file"
+          id="uploadedMusic__file"
+          tabindex="-1"
+          style="display: none"
+        />
+        <label class="buttons icons upload" for="uploadedMusic__file" id="uploadedMusic__fileLabel"
+          >Upload Music</label
+        >
+        <button class="buttons icons plus" id="uploadedMusic__save" title="Save">Save</button>
+        <button
+          class="buttons square icons nomargin leftarrow"
+          id="uploadedMusic__close"
+          title="Close"
+        ></button>
+        <div id="uploadedMusic__texts">
+          <p id="uploadedMusic__text"></p>
+          <p id="uploadedMusic__error"></p>
+        </div>
+      </div>
+      <div id="currentsMuics__div"></div>
+    </div>
+    <button
+      class="buttons square icons nomargin rightarrow"
+      id="uploadedMusic__open"
+      title="Open"
+    ></button>
+
+    <template id="template__currentsMuics__card">
+      <div class="currentsMuics__card">
+        <input type="radio" name="currentsmusic" id="music" />
+        <label for="music">UNDEFINED</label>
+      </div>
+    </template>
+
+    <div id="loading" aria-disabled="true" disabled="" style="display: none">
+      <div class="loading__bar"></div>
+      <div class="loading__bar"></div>
+      <div class="loading__bar"></div>
+      <div class="loading__bar"></div>
+      <div class="loading__bar"></div>
+      <div class="loading__bar"></div>
+      <div class="loading__bar"></div>
+      <div class="loading__bar"></div>
+    </div>
+
+    <div id="musicdiv">
+      <div
+        id="music"
+        class="icons nomargin musicdisc"
+        aria-disabled="true"
+        disabled=""
+        style="display: none"
+      >
+        <div id="music__content">Title</div>
+      </div>
+    </div>
+  </body>
+</html>
