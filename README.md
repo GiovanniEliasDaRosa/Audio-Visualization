@@ -12,7 +12,7 @@ It uses a XAMPP server to run, because it needs to use PHP.
 
 ## Features:
 
-**Real-Time Visualization:** Watch as your music transforms into visuals in real-time. Our app analyzes the audio's frequency and amplitude to generate bars that represent the volume of each Hertz channel, with heights ranging from 0% to 100%. The bars are color-coded (green, yellow, or red) to indicate the volume level of each channel.
+**Real-Time Visualization:** Watch as your music transforms into visuals in real-time. My app analyzes the audio's frequency and amplitude to generate bars that represent the volume of each Hertz channel, with heights ranging from 0% to 100%. The bars are color-coded (green, yellow, or red) to indicate the volume level of each channel.
 
 ## How to Use
 
