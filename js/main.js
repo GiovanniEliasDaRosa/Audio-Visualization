@@ -9,20 +9,17 @@ var volume = 0;
 var loadingMusic = false;
 let inactive = false;
 let lastFileData = null;
-const amount = Math.ceil(window.innerWidth / 900) * 100;
+const amount = Math.ceil(window.innerWidth / 600) * 100;
 
 let colorRandomness = 20;
 let currentTime = 0;
 
-const tiles = document.querySelector("#tiles");
-let divs = tiles.querySelectorAll("div");
-for (let i = 0; i < amount; i++) {
-  // Create and append new divs
-  var newDiv = document.createElement("div");
-  newDiv.style.transform = `scaleY(1)`;
-  newDiv.style.opacity = 0.1;
-  tiles.appendChild(newDiv);
-}
+const vizualizer_canvas = document.querySelector("#vizualizer");
+const ctx = vizualizer_canvas.getContext("2d");
+let width = 0;
+let height = 0;
+
+resizeCanvas();
 
 function clickPage(e) {
   if (e.target == play__button || e.target == "clickedItem") {
@@ -95,21 +92,23 @@ function clickPage(e) {
       }, 100);
     },
     onData: (data) => {
-      // log("onData()");
-      let divs = tiles.querySelectorAll("div");
-      data.forEach(function (h, index) {
-        let val = (h / 255) * (volume + 1);
-        divs[index].style.transform = `scaleY(${val})`;
-        divs[index].style.opacity = (val * 3) / 4 + 0.25;
+      ctx.clearRect(0, 0, width, height);
+      let thier_size = width / amount;
+      data.forEach(function (h, i) {
+        let percent = (h / 255) * (volume + 1);
+        let opacity = (percent * 3.5) / 4 + 0.25;
 
-        if (val < 0.5) {
-          color = 140 - val * colorRandomness;
-        } else if (val < 0.85) {
-          color = 50 - (val - 0.5) * colorRandomness;
+        if (percent < 0.5) {
+          color = 140 - percent * colorRandomness;
+        } else if (percent < 0.85) {
+          color = 50 - (percent - 0.5) * colorRandomness;
         } else {
-          color = 0 + (val - 0.85) * colorRandomness;
+          color = 0 + (percent - 0.85) * colorRandomness;
         }
-        divs[index].style.background = `hsl(${color}, 100%, 50%)`;
+        let result_height = percent * height;
+
+        ctx.fillStyle = `hsla(${color}, 100%, 50%, ${opacity})`;
+        ctx.fillRect(i * thier_size, height - result_height, thier_size, result_height);
       });
     },
     onError: () => {
@@ -165,12 +164,7 @@ function Muvis(path, options = null) {
 
   self.play = () => {
     loadingMusic = false;
-    let divs = tiles.querySelectorAll("div");
-    divs.forEach((element) => {
-      element.style.transform = `scaleY(0)`;
-      element.style.opacity = 0;
-      element.style.transition = "";
-    });
+    ctx.clearRect(0, 0, width, height);
     log("play()", 1);
     log(self.isPlaying, 1);
     if (self.isPlaying) {
@@ -308,13 +302,15 @@ function Muvis(path, options = null) {
     bufferSource.stop();
     play__button.className = "";
 
-    let divs = tiles.querySelectorAll("div");
-    divs.forEach((element) => {
-      element.style.transform = `scaleY(0)`;
-      element.style.opacity = 0;
-      element.style.background = `hsl(140, 100%, 50%)`;
-      element.style.transition = "1000ms transform, 500ms background 250ms, 500ms opacity 500ms";
-    });
+    ctx.clearRect(0, 0, width, height);
+
+    // let divs = tiles.querySelectorAll("div");
+    // divs.forEach((element) => {
+    //   element.style.transform = `scaleY(0)`;
+    //   element.style.opacity = 0;
+    //   element.style.background = `hsl(140, 100%, 50%)`;
+    //   element.style.transition = "1000ms transform, 500ms background 250ms, 500ms opacity 500ms";
+    // });
 
     if (currentTime > duration) {
       currentTime = 0;
@@ -384,6 +380,10 @@ window.onmousemove = () => {
       }
     }, 1000);
   }, 2000);
+};
+
+window.onresize = () => {
+  resizeCanvas();
 };
 
 function PrepareToActivate(element) {

@@ -12,3 +12,10 @@ function Disable(element, hide = true) {
     element.style.display = "none";
   }
 }
+
+function resizeCanvas() {
+  width = window.innerWidth;
+  height = window.innerHeight;
+  vizualizer.width = width;
+  vizualizer.height = height;
+}
